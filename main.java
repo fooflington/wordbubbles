@@ -15,14 +15,22 @@ class main {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String s;
 		ArrayList<ArrayList<Character>> grid = new ArrayList<ArrayList<Character>>();
+		HashMap<Integer, Object> hunted = null;
 
 		while ((s = in.readLine()) != null && s.length() != 0) {
-			if(s.startsWith("#")) continue;
-			ArrayList<Character> row = new ArrayList<Character>();
-			for ( char c : s.toLowerCase().toCharArray() ) {
-				row.add(new Character(c));
+			if(s.startsWith("#")) {
+				hunted = new HashMap<Integer, Object>();
+				String[] hunted_input = s.split("\\s+");
+				for ( int i=1; i<hunted_input.length; i++ ) {
+					hunted.put(new Integer(hunted_input[i]), true);
+				}
+			} else {
+				ArrayList<Character> row = new ArrayList<Character>();
+				for ( char c : s.toLowerCase().toCharArray() ) {
+					row.add(new Character(c));
+				}
+				grid.add(row);
 			}
-			grid.add(row);
 		}
 
 		// for ( ArrayList<Character> row : grid ) {
@@ -34,7 +42,16 @@ class main {
 		Prison prison = new Prison(grid);
 		System.out.println(prison);
 
-		System.out.println(prison.search(words));
+		ArrayList<String> found = prison.search(words);
+		for ( String w : found ) {
+			if(hunted != null) {
+				if( hunted.containsKey(new Integer(w.length())) ) {
+					System.out.println(w);
+				}
+			} else {
+				System.out.println(w);
+			}
+		}
 
 		// System.out.println(prison.getNeighbours(prison.getCell(0,2)));
 	}

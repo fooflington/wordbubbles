@@ -6,7 +6,7 @@ class main {
 
 	public static void main(String[] args) throws IOException {
 		Lexicon words = Lexicon.loadLexiconFromFile(args[0]);
-		System.out.println(words);
+		// System.out.println(words);
 		// String[] testwords = new String[]{"test", "amit", "ppp", "zebra"};
 		// for (String w : testwords) {
 		// 	System.out.println(w + "? " + words.checkWord(w) + " / " + words.checkPrefix(w));
@@ -40,16 +40,24 @@ class main {
 		// 	System.out.println(".");
 		// }
 		Prison prison = new Prison(grid);
-		System.out.println(prison);
+		// System.out.println(prison);
 
 		ArrayList<LinkedHashSet<Cell>> found = prison.search(words);
 		for ( LinkedHashSet<Cell> w : found ) {
 			if(hunted != null) {
 				if( hunted.containsKey(new Integer(w.size())) ) {
-					System.out.println(w);
+					String str = "";
+					for ( Cell letter : w ) {
+						str += letter;
+					}
+					System.out.println (str);
 				}
 			} else {
-				System.out.println(w);
+				String str = "";
+				for ( Cell letter : w ) {
+					str += letter;
+				}
+				System.out.println(str);
 			}
 		}
 

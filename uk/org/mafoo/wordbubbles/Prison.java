@@ -56,8 +56,8 @@ public class Prison {
 		return cells.get(x).get(y);
 	}
 
-	public ArrayList<String> search(WordList words) {
-		ArrayList<String> found = new ArrayList<String>();
+	public ArrayList<LinkedHashSet<Cell>> search(Lexicon words) {
+		ArrayList<LinkedHashSet<Cell>> found = new ArrayList<LinkedHashSet<Cell>>();
 		// System.out.println("Started hunting");
 
 		for (int i=0; i<cells.size(); i++) {
@@ -65,7 +65,7 @@ public class Prison {
 				if(cells.get(i).get(j) != null) {
 					try {
 						// System.out.println("Starting down a new rabbit hole at " + i + "," + j);
-						rabbithole(cells.get(i).get(j), new HashMap<Cell, Object>(), "", words, found);
+						rabbithole(cells.get(i).get(j), new LinkedHashSet<Cell>(), "", words, found);
 					} catch (ImpossibleException e) {
 
 					}
@@ -75,28 +75,36 @@ public class Prison {
 		return found;
 	}
 
-	private void rabbithole(Cell c, HashMap<Cell, Object> visited, String embryo, WordList words, ArrayList<String> found) throws ImpossibleException {
+	private void rabbithole(
+		Cell c, 
+		LinkedHashSet<Cell> visited, 
+		String embryo, 
+		Lexicon words, 
+		ArrayList<LinkedHashSet<Cell>> found
+		) throws ImpossibleException {
 		// System.out.println("At " + c.x + "," + c.y);
 
 		embryo += c.inmate;
+		visited.add(c);
 
 		if(words.checkWord(embryo)) {
-			found.add(embryo);
+			found.add(new LinkedHashSet<Cell>(visited));
 			// System.out.println("Found a word: " + embryo);
 		}
 
 		if(words.checkPrefix(embryo)) {
 			// Then it's worth carrying on
 			// System.out.println("Found valid embryo: " + embryo);
-			visited.put(c, true);
+			
 			for (Cell next : getNeighbours(c)) {
-				if(visited.containsKey(next)) {
+				if(visited.contains(next)) {
 					continue;
 				} else {
 					rabbithole(next, visited, embryo, words, found);
 				}
 			}
-			visited.remove(c);
 		}
+
+		visited.remove(c);
 	}
 }

@@ -5,7 +5,7 @@ import uk.org.mafoo.wordbubbles.*;
 class main {
 
 	public static void main(String[] args) throws IOException {
-		WordList words = WordList.loadWordListFromFile(args[0]);
+		Lexicon words = Lexicon.loadLexiconFromFile(args[0]);
 		System.out.println(words);
 		// String[] testwords = new String[]{"test", "amit", "ppp", "zebra"};
 		// for (String w : testwords) {
@@ -42,10 +42,10 @@ class main {
 		Prison prison = new Prison(grid);
 		System.out.println(prison);
 
-		ArrayList<String> found = prison.search(words);
-		for ( String w : found ) {
+		ArrayList<LinkedHashSet<Cell>> found = prison.search(words);
+		for ( LinkedHashSet<Cell> w : found ) {
 			if(hunted != null) {
-				if( hunted.containsKey(new Integer(w.length())) ) {
+				if( hunted.containsKey(new Integer(w.size())) ) {
 					System.out.println(w);
 				}
 			} else {

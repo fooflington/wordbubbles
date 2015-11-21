@@ -43,6 +43,7 @@ This should output a list of words :-)
 
 ### Test run
 On my pretty old and crusty machine (1.6GHz Intel Atom) it runs in a couple of seconds:
+
 ```
 $ time java main /stuff/dicts/twl06 <grid.txt
 passed

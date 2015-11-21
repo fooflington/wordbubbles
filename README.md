@@ -40,3 +40,26 @@ $ java main /path/to/wordlist <grid.txt
 ```
 
 This should output a list of words :-)
+
+### Test run
+On my pretty old and crusty machine (1.6GHz Intel Atom) it runs in a couple of seconds:
+```
+$ time java main /stuff/dicts/twl06 <grid.txt
+passed
+passed
+pampas
+pampas
+demast
+massed
+massed
+smazes
+spasmed
+massed
+massed
+passed
+passed
+
+real    0m2.254s
+user    0m2.144s
+sys     0m0.172s
+```

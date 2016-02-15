@@ -8,7 +8,16 @@
 
 // String dict = request.getParameter("dictionary");
 // if(dict != "twl06") throw new Exception("failed to get dictionary");
-String dict = "/usr/share/dict/twl06";
+String dict_file = "words";
+if(request.getParameter("dict") != null) {
+        if(request.getParameter("dict").matches("^[a-z\\-_]+$")) {
+                 dict_file = request.getParameter("dict");
+        } else {
+                throw new Exception ("invalict dict paramter");
+        }
+}
+
+String dict = application.getRealPath("WEB-INF/dicts") + "/" + dict_file;
 
 uk.org.mafoo.wordbubbles.Lexicon words = uk.org.mafoo.wordbubbles.Lexicon.loadLexiconFromFile(dict);
 ArrayList<ArrayList<Character>> grid = new ArrayList<ArrayList<Character>>();
@@ -65,13 +74,18 @@ for ( LinkedHashSet<Cell> w : found ) {
 %>
 </table>
 
-<% if(desired_active) { %> Looking for words of length(s): <%= desired %> <% } %>
-<h2>Results</h2>
+<% if(desired_active) { %> Looking for words of length(s): <%= desired %> <% } %><br />
+Using dictionary: <%= dict_file %>
 
-<ul style="font-family: monospace;">
-<% 
+<%
    List<String> output = new ArrayList<String>(foundwords);
    Collections.sort(output);
+%>
+
+<h2>Results</h2>
+Count: <%= output.size() %>
+<ul style="font-family: monospace;">
+<% 
    for (String word : output) { %>
 <li><%= word %></li>
 <% } %>

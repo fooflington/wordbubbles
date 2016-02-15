@@ -27,4 +27,4 @@ clean:
 	rm -f $(OBJS)
 
 wordbubbles.jar: build
-	jar cf $(OBJS)
+	jar cf $@ $(OBJS)

@@ -1,4 +1,5 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash 
+set -x
 
 make wordbubbles.jar
 mkdir -p war/WEB-INF/lib war/WEB-INF/classes

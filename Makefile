@@ -3,8 +3,7 @@ JAVA  = /usr/bin/java
 JAVAC = /usr/bin/javac
 JFLAGS = -g # -classpath $(LIBS)
 
-SRCS = main.java \
-	uk/org/mafoo/wordbubbles/Cell.java \
+SRCS = uk/org/mafoo/wordbubbles/Cell.java \
 	uk/org/mafoo/wordbubbles/ImpossibleException.java \
 	uk/org/mafoo/wordbubbles/Lexicon.java \
 	uk/org/mafoo/wordbubbles/Prison.java
@@ -21,7 +20,7 @@ run: all
 .java.class:
 	$(JAVAC) $(JFLAGS) $<
 
-build: $(OBJS)
+build: $(OBJS) main.class
 
 clean:
 	rm -f $(OBJS)
